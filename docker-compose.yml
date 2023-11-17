@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - '3000:3000'
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - '3001:3001'
+    stdin_open: true
+    tty: true
+    environment:
+      MYSQL_HOST: 'mysql'
+      MYSQL_USER: 'nageshwar'
+      MYSQL_PASSWORD: 'DtnPkAlpxWTC9CkE:'
+      MYSQL_DATABASE: 'NAGESHWAR'
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: 'your-root-password'
+      MYSQL_DATABASE: 'NAGESHWAR'
+      MYSQL_USER: 'nageshwar'
+      MYSQL_PASSWORD: 'DtnPkAlpxWTC9CkE:'
+    ports:
+      - '3306:3306'
